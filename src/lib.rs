@@ -33,10 +33,10 @@ mod sse2;
 ))]
 use sse2 as simd;
 
-#[cfg(all(target_arch = "aarch64", target_feature = "neon", not(miri)))]
+#[cfg(all(target_arch = "aarch64", target_pointer_width = "64", target_feature = "neon", not(miri)))]
 mod neon;
 
-#[cfg(all(target_arch = "aarch64", target_feature = "neon", not(miri)))]
+#[cfg(all(target_arch = "aarch64", target_pointer_width = "64", target_feature = "neon", not(miri)))]
 use neon as simd;
 
 #[cfg(not(any(
@@ -45,7 +45,7 @@ use neon as simd;
         target_feature = "sse2",
         not(miri)
     ),
-    all(target_arch = "aarch64", target_feature = "neon", not(miri))
+    all(target_arch = "aarch64", target_pointer_width = "64", target_feature = "neon", not(miri))
 )))]
 use generic as simd;
 
